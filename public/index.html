@@ -20,9 +20,11 @@
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
-          <li class="tab col s4"><a class="active" href="#seeds">Seeds</a></li>
-          <li class="tab col s4"><a href="#gear">Gear</a></li>
-          <li class="tab col s4"><a href="#easter">Easter</a></li>
+          <li class="tab col s2"><a class="active" href="#seeds">Seeds</a></li>
+          <li class="tab col s2"><a href="#gear">Gear</a></li>
+          <li class="tab col s2"><a href="#egg">Egg</a></li>
+          <li class="tab col s2"><a href="#honey">Honey</a></li>
+          <li class="tab col s2"><a href="#cosmetics">Cosmetics</a></li>
         </ul>
       </div>
       <div id="seeds" class="col s12">
@@ -31,8 +33,7 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Buy Price</th>
-              <th>Sell Price</th>
+              <th>Quantity</th>
               <th>Availability</th>
             </tr>
           </thead>
@@ -45,26 +46,50 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Buy Price</th>
-              <th>Sell Price</th>
+              <th>Quantity</th>
               <th>Availability</th>
             </tr>
           </thead>
           <tbody id="gearTable"></tbody>
         </table>
       </div>
-      <div id="easter" class="col s12">
-        <input type="text" id="easterFilter" placeholder="Filter easter items...">
+      <div id="egg" class="col s12">
+        <input type="text" id="eggFilter" placeholder="Filter eggs...">
         <table class="highlight responsive-table">
           <thead>
             <tr>
               <th>Name</th>
-              <th>Buy Price</th>
-              <th>Sell Price</th>
+              <th>Quantity</th>
               <th>Availability</th>
             </tr>
           </thead>
-          <tbody id="easterTable"></tbody>
+          <tbody id="eggTable"></tbody>
+        </table>
+      </div>
+      <div id="honey" class="col s12">
+        <input type="text" id="honeyFilter" placeholder="Filter honey items...">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody id="honeyTable"></tbody>
+        </table>
+      </div>
+      <div id="cosmetics" class="col s12">
+        <input type="text" id="cosmeticsFilter" placeholder="Filter cosmetics...">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody id="cosmeticsTable"></tbody>
         </table>
       </div>
     </div>
