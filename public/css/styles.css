@@ -12,6 +12,7 @@ nav {
 
 .tabs .tab a {
   color: #26a69a;
+  font-size: 0.9rem; /* Smaller font for more tabs */
 }
 
 .tabs .tab a:hover,
