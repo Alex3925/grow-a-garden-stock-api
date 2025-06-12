@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       renderTable('seedTable', data.seeds);
       renderTable('gearTable', data.gear);
-      renderTable('easterTable', data.easter);
+      renderTable('eggTable', data.egg);
+      renderTable('honeyTable', data.honey);
+      renderTable('cosmeticsTable', data.cosmetics);
       document.getElementById('lastUpdated').textContent = `Last Updated: ${new Date(lastUpdated).toLocaleString()}`;
     } catch (error) {
       M.toast({ html: `Error: ${error.message}`, classes: 'red' });
@@ -23,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${item.name}</td>
-        <td>${item.buyPrice}</td>
-        <td>${item.sellPrice}</td>
+        <td>${item.quantity}</td>
         <td>${item.availability}</td>
       `;
       tbody.appendChild(tr);
@@ -45,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   addFilter('seedFilter', 'seedTable');
   addFilter('gearFilter', 'gearTable');
-  addFilter('easterFilter', 'easterTable');
+  addFilter('eggFilter', 'eggTable');
+  addFilter('honeyFilter', 'honeyTable');
+  addFilter('cosmeticsFilter', 'cosmeticsTable');
 
   fetchStocks();
   setInterval(fetchStocks, 300000); // Refresh every 5 minutes
