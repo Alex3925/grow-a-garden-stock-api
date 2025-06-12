@@ -5,7 +5,8 @@ const scrapeStockData = async (url) => {
   try {
     const { data } = await axios.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
       }
     });
 
@@ -13,39 +14,36 @@ const scrapeStockData = async (url) => {
     const stocks = {
       seeds: [],
       gear: [],
-      easter: []
+      egg: [],
+      honey: [],
+      cosmetics: []
     };
 
-    // Example selectors (adjust based on actual HTML structure)
-    $('table.seed-shop tr').each((i, elem) => {
-      const item = {
-        name: $(elem).find('td:nth-child(1)').text().trim(),
-        buyPrice: $(elem).find('td:nth-child(2)').text().trim(),
-        sellPrice: $(elem).find('td:nth-child(3)').text().trim(),
-        availability: $(elem).find('td:nth-child(4)').text().trim()
-      };
-      if (item.name) stocks.seeds.push(item);
-    });
+    // Helper function to parse stock items
+    const parseItems = (selector, category) => {
+      $(selector).each((i, elem) => {
+        const text = $(elem).text().trim();
+        if (text && text.includes('x')) {
+          const [name, quantity] = text.split(' x').map(str => str.trim());
+          if (name && quantity) {
+            stocks[category].push({
+              name,
+              quantity: parseInt(quantity),
+              buyPrice: 'N/A', // Not provided in HTML
+              sellPrice: 'N/A', // Not provided in HTML
+              availability: quantity > 0 ? 'In Stock' : 'Out of Stock'
+            });
+          }
+        }
+      });
+    };
 
-    $('table.gear-shop tr').each((i, elem) => {
-      const item = {
-        name: $(elem).find('td:nth-child(1)').text().trim(),
-        buyPrice: $(elem).find('td:nth-child(2)').text().trim(),
-        sellPrice: $(elem).find('td:nth-child(3)').text().trim(),
-        availability: $(elem).find('td:nth-child(4)').text().trim()
-      };
-      if (item.name) stocks.gear.push(item);
-    });
-
-    $('table.easter-shop tr').each((i, elem) => {
-      const item = {
-        name: $(elem).find('td:nth-child(1)').text().trim(),
-        buyPrice: $(elem).find('td:nth-child(2)').text().trim(),
-        sellPrice: $(elem).find('td:nth-child(3)').text().trim(),
-        availability: $(elem).find('td:nth-child(4)').text().trim()
-      };
-      if (item.name) stocks.easter.push(item);
-    });
+    // Parse each stock category
+    parseItems('div:contains("GEAR STOCK") + div div:contains("x")', 'gear');
+    parseItems('div:contains("EGG STOCK") + div div:contains("x")', 'egg');
+    parseItems('div:contains("SEEDS STOCK") + div div:contains("x")', 'seeds');
+    parseItems('div:contains("HONEY STOCK") + div div:contains("x")', 'honey');
+    parseItems('div:contains("COSMETICS STOCK") + div div:contains("x")', 'cosmetics');
 
     return stocks;
   } catch (error) {
